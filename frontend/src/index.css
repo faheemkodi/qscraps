@@ -1,8 +1,26 @@
 main {
   min-height: 80vh;
-  background-image: url(./qscraps-bg.jpg);
+  background: linear-gradient(
+    180deg,
+    #480b1d,
+    #480b1d,
+    #490b1e,
+    #4b0c1e,
+    #4d0c1f,
+    #4f0c20,
+    #520d21,
+    #540d22,
+    #560d23,
+    #570e23,
+    #590e24,
+    #590e24
+  );
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+.header {
+  margin-bottom: 100px;
 }
 
 .carousel {
@@ -11,20 +29,62 @@ main {
   margin: 10px auto auto auto;
 }
 
-.home-table-row {
-  cursor: pointer;
+.search-box {
+  display: flex;
+  width: 80%;
 }
 
-@media (max-width: 900px) {
+.search-filters {
+  display: flex;
+  width: 80%;
+}
+
+.listing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 75%;
+}
+
+.listing-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listing-list {
+  display: flex;
+}
+
+@media (max-width: 767px) {
+  .header {
+    margin-bottom: 50px;
+  }
   .carousel {
     width: auto;
     height: auto;
   }
-}
-
-@media (max-width: 576px) {
   .search-button {
     display: block;
+    width: 100%;
+  }
+  .search-filters {
+    display: block;
+    width: 100%;
+  }
+  .search-box {
+    display: block;
+    width: 100%;
+  }
+  .listing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+  }
+  .cta {
+    display: block;
+    margin-bottom: 5px;
     width: 100%;
   }
 }

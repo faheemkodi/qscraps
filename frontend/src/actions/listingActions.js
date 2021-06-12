@@ -164,3 +164,35 @@ export const updateListing = (listing) => async (dispatch, getState) => {
     });
   }
 };
+
+export const listMyListings = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: LISTING_LIST_REQUEST });
+
+    const {
+      vendorLogin: { vendorInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${vendorInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/listings/mylistings`, config);
+
+    dispatch({
+      type: LISTING_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LISTING_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

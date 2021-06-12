@@ -1,16 +1,18 @@
 import asyncHandler from 'express-async-handler';
 import Listing from '../models/listingModel.js';
 
-// @desc Fetch all listings + search
+// @desc Fetch all listings + filter by params
 // @route GET/api/listings
 // @access Public route
 const getListings = asyncHandler(async (req, res) => {
   const keyword = req.query.keyword
     ? {
-        title: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
+        $or: [
+          { title: { $regex: req.query.keyword, $options: 'i' } },
+          { description: { $regex: req.query.keyword, $options: 'i' } },
+          { make: { $regex: req.query.keyword, $options: 'i' } },
+          { model: { $regex: req.query.keyword, $options: 'i' } },
+        ],
       }
     : {};
 
@@ -18,9 +20,13 @@ const getListings = asyncHandler(async (req, res) => {
 
   const model = req.query.model ? { model: req.query.model } : {};
 
-  const year = req.query.year ? { year: req.query.year } : {};
+  const year = req.query.year
+    ? { year: { $regex: req.query.year, $options: 'i' } }
+    : {};
 
-  const category = req.query.category ? { category: req.query.category } : {};
+  const category = req.query.category
+    ? { category: { $regex: req.query.category, $options: 'i' } }
+    : {};
 
   const listings = await Listing.find({
     ...keyword,

@@ -5,20 +5,24 @@ const listingSchema = mongoose.Schema(
     title: {
       type: String,
       required: true,
+      trim: true,
     },
     description: {
       type: String,
       required: true,
+      trim: true,
     },
     make: {
       type: mongoose.Schema.Types.String,
       ref: 'Make',
       required: true,
+      trim: true,
     },
     model: {
       type: mongoose.Schema.Types.String,
       ref: 'Model',
       required: true,
+      trim: true,
     },
     year: [
       {

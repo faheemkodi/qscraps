@@ -44,7 +44,7 @@ const ListingEditScreen = ({ match, history }) => {
     if (successUpdate) {
       dispatch({ type: LISTING_UPDATE_RESET });
       dispatch({ type: LISTING_DETAILS_RESET });
-      history.push('/admin/listinglist');
+      history.push('/dashboard');
     } else {
       if (!listing.title || listing._id !== listingId) {
         dispatch(listListingDetails(listingId));
@@ -140,7 +140,7 @@ const ListingEditScreen = ({ match, history }) => {
 
   return (
     <>
-      <Link to="/admin/listinglist" className="btn btn-light my-3">
+      <Link to="/dashboard" className="btn btn-light my-3">
         Go Back
       </Link>
       <FormContainer>

@@ -8,31 +8,24 @@ import Loader from '../components/Loader';
 import { listListings } from '../actions/listingActions';
 
 const HomeScreen = ({ match }) => {
-  //stores the params in a variable
   const keyword = match.params.keyword;
   const make = match.params.make;
   const model = match.params.model;
   const year = match.params.year;
   const category = match.params.category;
 
-  console.log(make, model, year, category);
-
   const dispatch = useDispatch();
 
   const listingList = useSelector((state) => state.listingList);
   const { loading, error, listings } = listingList;
 
-  //Herein, lies the error that will be sent to Valhalla tomorrow!
-  //takes in params and dispatches the action to list the listings according to params
   useEffect(() => {
     dispatch(listListings(keyword, make, model, year, category));
   }, [dispatch, keyword, make, model, year, category]);
 
   return (
     <>
-      <h1 className="text-center text-uppercase text-white rounded-sm bg-primary">
-        Our Vendors
-      </h1>
+      <h1 className="text-center text-uppercase text-white">Latest Listings</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -40,7 +33,7 @@ const HomeScreen = ({ match }) => {
       ) : (
         <Row>
           {listings.map((listing) => (
-            <Col key={listing._id} sm={12} md={6}>
+            <Col key={listing._id} sm={12}>
               <Listing listing={listing} />
             </Col>
           ))}

@@ -9,6 +9,7 @@ import ListingScreen from './screens/ListingScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import DashboardScreen from './screens/DashboardScreen';
 import VendorListScreen from './screens/VendorListScreen';
 import VendorEditScreen from './screens/VendorEditScreen';
 import ListingListScreen from './screens/ListingListScreen';
@@ -18,12 +19,13 @@ const App = () => {
   return (
     <>
       <Header />
-      <main className="py-5 mt-5">
+      <main className="py-5">
         <Container>
           <Switch>
             <Route exact path="/login" component={LoginScreen} />
             <Route exact path="/register" component={RegisterScreen} />
             <Route exact path="/profile" component={ProfileScreen} />
+            <Route exact path="/dashboard" component={DashboardScreen} />
             <Route path="/listing/:id" component={ListingScreen} />
             <Route path="/admin/vendorlist" component={VendorListScreen} />
             <Route path="/admin/vendor/:id/edit" component={VendorEditScreen} />
@@ -33,9 +35,10 @@ const App = () => {
               component={ListingEditScreen}
             />
             <Route
-              path="/search/:keyword?/:make?/:model?/:year?/:category?"
+              path="/search/filters/:make/:model/:year/:category"
               component={HomeScreen}
             />
+            <Route path="/search/:keyword" component={HomeScreen} />
             <Route exact path="/" component={HomeScreen} />
           </Switch>
         </Container>

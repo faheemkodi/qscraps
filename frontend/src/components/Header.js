@@ -2,7 +2,15 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import {
+  Navbar,
+  Nav,
+  Container,
+  NavDropdown,
+  Row,
+  Col,
+  Button,
+} from 'react-bootstrap';
 import { FaUser } from 'react-icons/fa';
 import { logout } from '../actions/vendorActions';
 
@@ -20,12 +28,12 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header className="header">
       <Navbar
         fixed="top"
         bg="light"
         variant="light"
-        expand="lg"
+        expand="md"
         collapseOnSelect
       >
         <Container>
@@ -36,13 +44,26 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Route render={({ history }) => <SearchBox history={history} />} />
-            <Route
-              render={({ history }) => <SearchFilters history={history} />}
-            />
+            <Col>
+              <Row>
+                <Route
+                  render={({ history }) => <SearchBox history={history} />}
+                />
+              </Row>
+
+              <Row>
+                <Route
+                  render={({ history }) => <SearchFilters history={history} />}
+                />
+              </Row>
+            </Col>
+
             <Nav className="ml-auto text-uppercase font-weight-bold">
               {vendorInfo ? (
                 <NavDropdown title={vendorInfo.vendorName} id="vendorname">
+                  <LinkContainer to="/dashboard">
+                    <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                  </LinkContainer>
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
@@ -58,7 +79,7 @@ const Header = () => {
                 </LinkContainer>
               )}
               {vendorInfo && vendorInfo.isAdmin && (
-                <NavDropdown title="Admin Menu" id="adminmenu">
+                <NavDropdown title="Superuser" id="adminmenu">
                   <LinkContainer to="/admin/vendorlist">
                     <NavDropdown.Item>Vendors Directory</NavDropdown.Item>
                   </LinkContainer>
