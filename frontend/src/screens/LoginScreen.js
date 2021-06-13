@@ -4,6 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import FormContainer from '../components/FormContainer';
 import { login } from '../actions/vendorActions';
 
@@ -31,7 +32,11 @@ const LoginScreen = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1>Login</h1>
+      <Meta title="Q-Scraps | Login" />
+      <Link className="btn btn-light btn-sm my-5 text-uppercase" to="/">
+        Go Back
+      </Link>
+      <h1 className="text-light">Login</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
@@ -39,7 +44,7 @@ const LoginScreen = ({ location, history }) => {
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter your email"
+            placeholder="Enter your registered email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
@@ -54,16 +59,21 @@ const LoginScreen = ({ location, history }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button
+          type="submit"
+          variant="secondary"
+          className="text-uppercase text-light font-weight-bold"
+          block
+        >
           Sign In
         </Button>
       </Form>
 
-      <Row className="py-3">
+      <Row className="mt-5 text-center py-3 bg-light rounded">
         <Col>
-          New Vendor?{' '}
+          <strong>New vendor?</strong>{' '}
           <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
+            <strong>Click here to register</strong>
           </Link>
         </Col>
       </Row>

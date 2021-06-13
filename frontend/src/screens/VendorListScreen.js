@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button, Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FaCheck, FaTimes, FaEdit, FaTrash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import { listVendors, deleteVendor } from '../actions/vendorActions';
 
 const VendorListScreen = ({ history }) => {
@@ -35,20 +37,23 @@ const VendorListScreen = ({ history }) => {
 
   return (
     <>
-      <h1>Vendor List</h1>
+      <Meta title="Q-Scraps | Vendors Directory" />
+      <Link className="btn btn-light btn-sm my-5 text-uppercase" to="/">
+        Go Back
+      </Link>
+      <h1 className="text-light">Vendors Directory</h1>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm">
+        <Table striped bordered hover responsive className="table-sm bg-light">
           <thead>
             <tr>
-              <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>PRI CONTACT</th>
-              <th>ALT CONTACT</th>
+              <th>CONTACT #1</th>
+              <th>CONTACT #2</th>
               <th>CR NO.</th>
               <th>ADDRESS</th>
               <th>ADMIN</th>
@@ -58,7 +63,6 @@ const VendorListScreen = ({ history }) => {
           <tbody>
             {vendors.map((vendor) => (
               <tr key={vendor._id}>
-                <td>{vendor._id}</td>
                 <td>{vendor.vendorName}</td>
                 <td>
                   <a href={`mailto:${vendor.email}`}>{vendor.email}</a>

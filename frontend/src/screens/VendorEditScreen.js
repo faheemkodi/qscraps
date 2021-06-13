@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import FormContainer from '../components/FormContainer';
 import { getVendorDetails, updateVendor } from '../actions/vendorActions';
 import { VENDOR_UPDATE_RESET } from '../constants/vendorConstants';
@@ -71,11 +72,15 @@ const VendorEditScreen = ({ match, history }) => {
 
   return (
     <>
-      <Link to="/admin/vendorlist" className="btn btn-light my-3">
+      <Meta title="Q-Scraps | Vendor Edit Screen" />
+      <Link
+        to="/admin/vendorlist"
+        className="btn btn-sm text-uppercase btn-light my-3"
+      >
         Go Back
       </Link>
       <FormContainer>
-        <h1>Edit Vendor Details</h1>
+        <h1 className="text-light">Edit Vendor Details</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
         {loading ? (
@@ -172,8 +177,13 @@ const VendorEditScreen = ({ match, history }) => {
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></Form.Check>
             </Form.Group>
-            <Button type="submit" variant="primary">
-              Update
+            <Button
+              type="submit"
+              variant="secondary"
+              className="text-uppercase text-light font-weight-bold"
+              block
+            >
+              Update Vendor
             </Button>
           </Form>
         )}

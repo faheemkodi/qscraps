@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import FormContainer from '../components/FormContainer';
 import { listListingDetails, updateListing } from '../actions/listingActions';
 import {
   LISTING_DETAILS_RESET,
   LISTING_UPDATE_RESET,
 } from '../constants/listingConstants';
+
+import { listMakes, listMakeModels } from '../actions/makeActions';
+import { listYears } from '../actions/yearActions';
+import { listCategories } from '../actions/categoryActions';
 
 const ListingEditScreen = ({ match, history }) => {
   const listingId = match.params.id;
@@ -32,6 +37,32 @@ const ListingEditScreen = ({ match, history }) => {
 
   const listingDetails = useSelector((state) => state.listingDetails);
   const { loading, error, listing } = listingDetails;
+
+  //copy
+  const makeList = useSelector((state) => state.makeList);
+  const { makes } = makeList;
+
+  const modelList = useSelector((state) => state.modelList);
+  const { models } = modelList;
+
+  const yearList = useSelector((state) => state.yearList);
+  const { years } = yearList;
+
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+
+  useEffect(() => {
+    dispatch(listMakes());
+    dispatch(listYears());
+    dispatch(listCategories());
+  }, [dispatch, make]);
+
+  const makeChangeHandler = (e) => {
+    e.preventDefault();
+    setMake(e.target.value);
+    dispatch(listMakeModels(e.target.value));
+  };
+  //end
 
   const listingUpdate = useSelector((state) => state.listingUpdate);
   const {
@@ -140,11 +171,15 @@ const ListingEditScreen = ({ match, history }) => {
 
   return (
     <>
-      <Link to="/dashboard" className="btn btn-light my-3">
+      <Meta title="Q-Scraps | Edit Listing" />
+      <Link
+        to="/dashboard"
+        className="btn btn-light btn-sm text-uppercase my-3"
+      >
         Go Back
       </Link>
       <FormContainer>
-        <h1>Edit Listing</h1>
+        <h1 className="text-light">Edit Listing</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
         {loading ? (
@@ -157,7 +192,7 @@ const ListingEditScreen = ({ match, history }) => {
               <Form.Label>Title</Form.Label>
               <Form.Control
                 type="name"
-                placeholder="Enter title for listing"
+                placeholder="Enter a listing title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               ></Form.Control>
@@ -176,54 +211,116 @@ const ListingEditScreen = ({ match, history }) => {
             <Form.Group controlId="make">
               <Form.Label>Make</Form.Label>
               <Form.Control
-                type="text"
+                as="select"
                 placeholder="Enter vehicle make"
                 value={make}
-                onChange={(e) => setMake(e.target.value)}
-              ></Form.Control>
+                onChange={makeChangeHandler}
+              >
+                <option key="blankValue" hidden value>
+                  --Select Make--
+                </option>
+                {makes.map((make, _id) => {
+                  return (
+                    <option key={_id} value={make.name}>
+                      {make.name}
+                    </option>
+                  );
+                })}
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="model">
               <Form.Label>Model</Form.Label>
               <Form.Control
-                type="text"
+                as="select"
                 placeholder="Enter vehicle model"
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
-              ></Form.Control>
+              >
+                <option key="blankValue" hidden value>
+                  --Select Model--
+                </option>
+                {models.map((model, _id) => {
+                  return (
+                    <option key={_id} value={model.name}>
+                      {model.name}
+                    </option>
+                  );
+                })}
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="year">
               <Form.Label>Years</Form.Label>
               <Form.Control
-                type="text"
+                as="select"
                 placeholder="Enter compatible years"
                 value={year}
-                onChange={(e) => setYear(e.target.value)}
-              ></Form.Control>
+                onChange={(e) =>
+                  setYear(
+                    [].slice
+                      .call(e.target.selectedOptions)
+                      .map((item) => item.value)
+                  )
+                }
+                multiple
+              >
+                {years.map((year, _id) => {
+                  return (
+                    <option key={_id} value={year.makeYear}>
+                      {year.makeYear}
+                    </option>
+                  );
+                })}
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="category">
               <Form.Label>Categories</Form.Label>
               <Form.Control
-                type="text"
+                as="select"
                 placeholder="Enter scrap categories"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
+                onChange={(e) =>
+                  setCategory(
+                    [].slice
+                      .call(e.target.selectedOptions)
+                      .map((item) => item.value)
+                  )
+                }
+                multiple
+              >
+                {categories.map((category, _id) => {
+                  return (
+                    <option key={_id} value={category.name}>
+                      {category.name}
+                    </option>
+                  );
+                })}
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="coverImage">
               <Form.Label>Cover Image</Form.Label>
+              <div>
+                <Image
+                  fluid
+                  thumbnail
+                  height="50"
+                  width="50"
+                  src={coverImage}
+                />
+              </div>
               <Form.Control
                 type="text"
-                placeholder="Insert cover image URL"
+                disabled
+                placeholder="Cover image URL"
                 value={coverImage}
                 onChange={(e) => setCoverImage(e.target.value)}
               ></Form.Control>
               <Form.File
                 id="coverImage-file"
-                label="Choose File"
+                label="Choose cover image"
                 custom
                 onChange={uploadFileHandler}
               ></Form.File>
@@ -232,17 +329,25 @@ const ListingEditScreen = ({ match, history }) => {
 
             <Form.Group controlId="images">
               <Form.Label>Listing Images</Form.Label>
+              <div className="d-flex flex-row">
+                {images.map((img, _id) => {
+                  return (
+                    <Image fluid thumbnail height="50" width="50" src={img} />
+                  );
+                })}
+              </div>
               <Form.Control
                 multiple
+                disabled
                 type="text"
-                placeholder="Insert listing image URLs"
+                placeholder="Listing image URLs"
                 value={images}
                 onChange={(e) => setImages(e.target.value)}
               ></Form.Control>
               <Form.File
                 multiple
                 id="images-files"
-                label="Choose Image Files"
+                label="Choose multiple images"
                 custom
                 onChange={uploadFilesHandler}
               ></Form.File>
@@ -254,8 +359,9 @@ const ListingEditScreen = ({ match, history }) => {
               <Form.Label>Vendor Name</Form.Label>
               <Form.Control
                 type="text"
+                disabled
                 placeholder="Enter vendor name"
-                value={vendorName}
+                value={listing.vendorName?.vendorName}
                 onChange={(e) => setVendorName(e.target.value)}
               ></Form.Control>
             </Form.Group>
@@ -264,6 +370,7 @@ const ListingEditScreen = ({ match, history }) => {
               <Form.Label>Primary Contact Number</Form.Label>
               <Form.Control
                 type="tel"
+                disabled
                 placeholder="Enter vendor's primary contact number"
                 value={primaryContactNo}
                 onChange={(e) => setPrimaryContactNo(e.target.value)}
@@ -274,14 +381,20 @@ const ListingEditScreen = ({ match, history }) => {
               <Form.Label>Alternate Contact Number</Form.Label>
               <Form.Control
                 type="tel"
+                disabled
                 placeholder="Enter vendor's alternate contact number"
                 value={alternateContactNo}
                 onChange={(e) => setAlternateContactNo(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="primary">
-              Update
+            <Button
+              type="submit"
+              variant="secondary"
+              className="text-uppercase text-light font-weight-bold"
+              block
+            >
+              Update Listing
             </Button>
           </Form>
         )}

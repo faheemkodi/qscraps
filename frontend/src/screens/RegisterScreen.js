@@ -4,6 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import FormContainer from '../components/FormContainer';
 import { register } from '../actions/vendorActions';
 
@@ -52,7 +53,11 @@ const RegisterScreen = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1>Vendor Registration</h1>
+      <Meta title="Q-Scraps | Register" />
+      <Link className="btn btn-light btn-sm  my-5 text-uppercase" to="/login">
+        Go Back
+      </Link>
+      <h1 className="text-light">Vendor Registration</h1>
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
@@ -61,7 +66,7 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="name"
-            placeholder="Enter vendor name"
+            placeholder="Enter your business name"
             value={vendorName}
             onChange={(e) => setVendorName(e.target.value)}
           ></Form.Control>
@@ -71,7 +76,7 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter your email"
+            placeholder="Enter your business email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
@@ -101,7 +106,7 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Primary Contact Number</Form.Label>
           <Form.Control
             type="tel"
-            placeholder="Enter your primary contact number"
+            placeholder="Enter contact number (+974-xxxxxxxx)"
             value={primaryContactNo}
             onChange={(e) => setPrimaryContactNo(e.target.value)}
           ></Form.Control>
@@ -136,16 +141,21 @@ const RegisterScreen = ({ location, history }) => {
             onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button
+          type="submit"
+          variant="secondary"
+          className="text-uppercase text-light font-weight-bold"
+          block
+        >
           Register
         </Button>
       </Form>
 
-      <Row className="py-3">
+      <Row className="mt-5 text-center py-3 bg-light rounded">
         <Col>
-          Already a registered vendor?{' '}
+          <strong>Already a registered vendor?</strong>{' '}
           <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-            Login
+            <strong>Login here</strong>
           </Link>
         </Col>
       </Row>

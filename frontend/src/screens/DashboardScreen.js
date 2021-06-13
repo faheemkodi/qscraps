@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Button, Table, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Button, Table, Row, Col, Image } from 'react-bootstrap';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import {
   listMyListings,
   deleteListing,
@@ -69,12 +71,20 @@ const DashboardScreen = ({ history, match }) => {
 
   return (
     <>
+      <Meta title="Q-Scraps | Vendor Dashboard" />
+      <Link className="btn btn-light btn-sm my-5 text-uppercase" to="/">
+        Go Back
+      </Link>
       <Row className="align-items-center">
         <Col>
-          <h1>Dashboard</h1>
+          <h1 className="text-light">Dashboard</h1>
         </Col>
         <Col className="text-right">
-          <Button className="my-3" onClick={createListingHandler}>
+          <Button
+            className="my-3 text-light btn-sm"
+            variant="secondary"
+            onClick={createListingHandler}
+          >
             <FaPlus /> Create Listing
           </Button>
         </Col>
@@ -88,39 +98,45 @@ const DashboardScreen = ({ history, match }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm">
+        <Table striped bordered hover responsive className="table-sm bg-light">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>COVER</th>
               <th>TITLE</th>
               <th>DESCRIPTION</th>
               <th>MAKE</th>
               <th>MODEL</th>
               <th>YEAR</th>
               <th>CATEGORY</th>
-              <th>COVER</th>
-              <th>IMAGES</th>
-              <th>VENDOR</th>
-              <th>CONTACT 1</th>
-              <th>CONTACT 2</th>
               <th>MODIFY</th>
             </tr>
           </thead>
           <tbody>
             {listings.map((listing) => (
               <tr key={listing._id}>
-                <td>{listing._id}</td>
+                <td>
+                  <Image
+                    fluid
+                    thumbnail
+                    height="100"
+                    width="100"
+                    src={listing.coverImage}
+                  />
+                </td>
                 <td>{listing.title}</td>
                 <td>{listing.description}</td>
                 <td>{listing.make}</td>
                 <td>{listing.model}</td>
-                <td>{listing.year.join(', ')}</td>
-                <td>{listing.category.join(', ')}</td>
-                <td>{listing.coverImage}</td>
-                <td>{listing.images.join(', ')}</td>
-                <td>{listing.vendorName.vendorName}</td>
-                <td>{listing.primaryContactNo}</td>
-                <td>{listing.alternateContactNo}</td>
+                <td>
+                  {listing.year?.map((yr, index) => (
+                    <p key={index}>{yr}</p>
+                  ))}
+                </td>
+                <td>
+                  {listing.category?.map((cat, index) => (
+                    <p key={index}>{cat}</p>
+                  ))}
+                </td>
                 <td>
                   <LinkContainer to={`/admin/listing/${listing._id}/edit`}>
                     <Button variant="light" className="btn-sm">

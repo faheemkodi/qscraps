@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import {
   getVendorDetails,
   updateVendorProfile,
@@ -71,8 +73,15 @@ const ProfileScreen = ({ location, history }) => {
 
   return (
     <Row>
+      <Meta title="Q-Scraps | Profile Edit Screen" />
       <Col>
-        <h2>Vendor Profile</h2>
+        <Link
+          className="btn btn-light btn-sm my-5 text-uppercase"
+          to="/dashboard"
+        >
+          Dashboard
+        </Link>
+        <h2 className="text-light">Profile Edit Screen</h2>
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         {success && <Message variant="success">Profile Updated</Message>}
@@ -82,7 +91,7 @@ const ProfileScreen = ({ location, history }) => {
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="name"
-              placeholder="Enter vendor name"
+              placeholder="Enter your business name"
               value={vendorName}
               onChange={(e) => setVendorName(e.target.value)}
             ></Form.Control>
@@ -92,27 +101,27 @@ const ProfileScreen = ({ location, history }) => {
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter your email"
+              placeholder="Enter your business email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Change Password</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Enter your password"
+              placeholder="Enter a new password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
           <Form.Group controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>Confirm New Password</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Confirm new password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
@@ -122,7 +131,7 @@ const ProfileScreen = ({ location, history }) => {
             <Form.Label>Primary Contact Number</Form.Label>
             <Form.Control
               type="tel"
-              placeholder="Enter your primary contact number"
+              placeholder="Enter a contact number (+974-xxxxxxxx)"
               value={primaryContactNo}
               onChange={(e) => setPrimaryContactNo(e.target.value)}
             ></Form.Control>
@@ -157,7 +166,12 @@ const ProfileScreen = ({ location, history }) => {
               onChange={(e) => setAddress(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Button type="submit" variant="primary">
+          <Button
+            type="submit"
+            variant="secondary"
+            className="text-uppercase text-light font-weight-bold"
+            block
+          >
             Update Profile
           </Button>
         </Form>

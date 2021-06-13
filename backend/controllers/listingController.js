@@ -34,7 +34,9 @@ const getListings = asyncHandler(async (req, res) => {
     ...model,
     ...year,
     ...category,
-  });
+  })
+    .populate('vendorName', 'vendorName address')
+    .exec();
 
   res.json(listings);
 });
@@ -43,7 +45,9 @@ const getListings = asyncHandler(async (req, res) => {
 // @route GET/api/listings/:id
 // @access Public route
 const getListingById = asyncHandler(async (req, res) => {
-  const listing = await Listing.findById(req.params.id).exec();
+  const listing = await Listing.findById(req.params.id)
+    .populate('vendorName', 'vendorName address')
+    .exec();
 
   if (listing) {
     res.json(listing);

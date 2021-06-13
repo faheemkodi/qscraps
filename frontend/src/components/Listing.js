@@ -11,14 +11,14 @@ const Listing = ({ listing }) => {
     <Card as="div" className="m-3 p-3 rounded mx-auto listing">
       <Link to={`/listing/${listing._id}`}>
         <Image
+          fluid
           height="200"
           width="200"
           thumbnail
           src={listing.coverImage}
-          alt="First slide"
+          alt="listing cover image"
         />
       </Link>
-
       <Card.Body className="listing-body">
         <Link to={`/listing/${listing._id}`}>
           <Card.Title as="div" className="text-center text-uppercase">
@@ -45,7 +45,7 @@ const Listing = ({ listing }) => {
               ))}
             </ListGroup.Item>
             <ListGroup.Item key="4">
-              <strong>Category:</strong>
+              <strong>Categories Available:</strong>
               <br />
               {listing.category.map((cat, index) => (
                 <p key={index}>{cat}</p>
