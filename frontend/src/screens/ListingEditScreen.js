@@ -216,7 +216,7 @@ const ListingEditScreen = ({ match, history }) => {
                 value={make}
                 onChange={makeChangeHandler}
               >
-                <option key="blankValue" value>
+                <option key="blankValue" hidden value>
                   --Select Make--
                 </option>
                 {makes.map((make, _id) => {
@@ -313,7 +313,7 @@ const ListingEditScreen = ({ match, history }) => {
                   />
                 </div>
               ) : (
-                console.log('No cover')
+                ''
               )}
               <Form.Control
                 type="text"

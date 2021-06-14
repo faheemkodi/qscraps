@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
@@ -30,7 +29,7 @@ const Header = () => {
   return (
     <header className="header">
       <Navbar
-        fixed="top"
+        sticky="top"
         bg="light"
         variant="light"
         expand="md"
@@ -46,15 +45,11 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Col>
               <Row>
-                <Route
-                  render={({ history }) => <SearchBox history={history} />}
-                />
+                <SearchBox />
               </Row>
 
               <Row>
-                <Route
-                  render={({ history }) => <SearchFilters history={history} />}
-                />
+                <SearchFilters />
               </Row>
             </Col>
 

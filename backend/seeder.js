@@ -41,7 +41,7 @@ const importData = async () => {
     const adminPrimaryContact = createdVendors[0].primaryContactNo;
     const adminAlternateContact = createdVendors[0].alternateContactNo;
 
-    const sampleMake = createdMakes[0].name;
+    const sampleMake = createdMakes[1].name;
     const sampleModel = createdModels[0].name;
     const sampleYear = [createdYears[19].makeYear, createdYears[20].makeYear];
     const sampleCategory = [

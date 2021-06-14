@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
 
@@ -134,4 +135,4 @@ const SearchFilters = ({ history }) => {
   );
 };
 
-export default SearchFilters;
+export default withRouter(SearchFilters);

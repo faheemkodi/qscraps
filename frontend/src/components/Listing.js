@@ -1,74 +1,41 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, Button, Image, ListGroup } from 'react-bootstrap';
-import { FaPhone } from 'react-icons/fa';
+import React from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Card, Image, Row, Col } from 'react-bootstrap';
 
 const Listing = ({ listing }) => {
-  const [primaryContact, setPrimaryContact] = useState('Primary Contact');
-  const [alternateContact, setAlternateContact] = useState('Alternate Contact');
-
   return (
-    <Card as="div" className="m-3 p-3 rounded mx-auto listing">
-      <Link to={`/listing/${listing._id}`}>
-        <Image
-          fluid
-          height="200"
-          width="200"
-          thumbnail
-          src={listing.coverImage}
-          alt="listing cover image"
-        />
-      </Link>
-      <Card.Body className="listing-body">
-        <Link to={`/listing/${listing._id}`}>
-          <Card.Title as="div" className="text-center text-uppercase">
-            <strong>{listing.title}</strong>
-          </Card.Title>
-        </Link>
-        <Card.Text as="div">
-          <ListGroup className="text-center listing-list" horizontal="md">
-            <ListGroup.Item key="1">
-              <strong>Make:</strong>
-              <br />
-              {listing.make}
-            </ListGroup.Item>
-            <ListGroup.Item key="2">
-              <strong>Model:</strong>
-              <br />
-              {listing.model}
-            </ListGroup.Item>
-            <ListGroup.Item key="3">
-              <strong>Year:</strong>
-              <br />
-              {listing.year.map((yr, index) => (
-                <p key={index}>{yr}</p>
-              ))}
-            </ListGroup.Item>
-            <ListGroup.Item key="4">
-              <strong>Categories Available:</strong>
-              <br />
-              {listing.category.map((cat, index) => (
-                <p key={index}>{cat}</p>
-              ))}
-            </ListGroup.Item>
-          </ListGroup>
-          <div className="d-md-flex flex-row justify-content-around mt-3">
-            <Button
-              onClick={() => setPrimaryContact(listing.primaryContactNo)}
-              className="cta"
-              variant="primary"
-            >
-              <FaPhone /> {primaryContact}
-            </Button>
-            <Button
-              onClick={() => setAlternateContact(listing.alternateContactNo)}
-              className="cta"
-              variant="primary"
-            >
-              <FaPhone /> {alternateContact}
-            </Button>
-          </div>
-        </Card.Text>
+    <Card className="my-2 my-sm-3 listing">
+      <Card.Header className="text-center font-weight-bold text-uppercase text-primary">
+        {listing.title}
+      </Card.Header>
+      <Card.Body>
+        <LinkContainer to={`/listing/${listing._id}`}>
+          <Row>
+            <Col xs={4}>
+              <Image
+                thumbnail
+                src={listing.coverImage}
+                alt="listing cover image"
+              />
+            </Col>
+            <Col xs={4} className="text-center">
+              <p> {listing.make}</p>
+              <p>{listing.model}</p>
+              <p>
+                {listing.year.map((yr, index) => (
+                  <span key={index}>{yr} </span>
+                ))}
+              </p>
+            </Col>
+            <Col xs={4} className="text-center">
+              <p>
+                {listing.category.map((cat, index) => (
+                  <p key={index}>{cat}</p>
+                ))}
+              </p>
+            </Col>
+          </Row>
+        </LinkContainer>
       </Card.Body>
     </Card>
   );

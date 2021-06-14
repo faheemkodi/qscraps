@@ -4,13 +4,13 @@ const listingSchema = mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
       trim: true,
+      required: true,
     },
     description: {
       type: String,
-      required: true,
       trim: true,
+      required: true,
     },
     make: {
       type: mongoose.Schema.Types.String,
@@ -26,14 +26,12 @@ const listingSchema = mongoose.Schema(
       {
         type: mongoose.Schema.Types.String,
         ref: 'Year',
-        required: true,
       },
     ],
     category: [
       {
         type: mongoose.Schema.Types.String,
         ref: 'Category',
-        required: true,
       },
     ],
     coverImage: {

@@ -1,7 +1,6 @@
-//Search keywords in description, make, model, category as well
-
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 
 const SearchBox = ({ history }) => {
@@ -23,6 +22,7 @@ const SearchBox = ({ history }) => {
         onChange={(e) => setKeyword(e.target.value)}
         size="md"
         name="q"
+        value={keyword}
         placeholder="Search for vehicles or spare parts"
       ></Form.Control>
       <Button type="submit" variant="outline-primary" className="search-button">
@@ -32,4 +32,4 @@ const SearchBox = ({ history }) => {
   );
 };
 
-export default SearchBox;
+export default withRouter(SearchBox);

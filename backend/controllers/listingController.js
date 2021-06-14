@@ -95,12 +95,18 @@ const deleteListing = asyncHandler(async (req, res) => {
 // @access Private
 const createListing = asyncHandler(async (req, res) => {
   const listing = new Listing({
-    title: 'Add listing title',
-    description: 'Add listing description',
+    title: 'New Listing',
+    description: 'Add a description',
     make: '',
     model: '',
-    year: ['2021'],
-    category: ['All Parts'],
+    year: [''],
+    category: [''],
+    coverImage: '/images/sample-image.jpg',
+    images: [
+      '/images/sample-image.jpg',
+      '/images/sample-image.jpg',
+      '/images/sample-image.jpg',
+    ],
     vendorName: req.vendor._id,
     primaryContactNo: req.vendor.primaryContactNo,
     alternateContactNo: req.vendor.alternateContactNo,

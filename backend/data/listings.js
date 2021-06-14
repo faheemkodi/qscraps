@@ -1,7 +1,7 @@
 const listings = [
   {
-    title: 'Sample Listing',
-    description: 'Sample Description',
+    title: 'Dummy Listing',
+    description: 'Dummy Description',
     coverImage: '/images/sample-image.jpg',
     images: [
       '/images/sample-image.jpg',

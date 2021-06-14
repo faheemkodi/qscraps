@@ -38,7 +38,7 @@ const HomeScreen = ({ match }) => {
         <>
           <Row>
             {listings.map((listing) => (
-              <Col key={listing._id} sm={12}>
+              <Col key={listing._id} md={6}>
                 <Listing listing={listing} />
               </Col>
             ))}
