@@ -40,12 +40,10 @@ const listingSchema = mongoose.Schema(
     ],
     coverImage: {
       type: String,
-      required: true,
     },
     images: [
       {
         type: String,
-        required: true,
       },
     ],
     vendorName: {

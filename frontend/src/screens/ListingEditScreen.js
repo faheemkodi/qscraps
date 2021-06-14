@@ -179,7 +179,7 @@ const ListingEditScreen = ({ match, history }) => {
         Go Back
       </Link>
       <FormContainer>
-        <h1 className="text-light">Edit Listing</h1>
+        <h1 className="text-light">Listing Details</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
         {loading ? (
@@ -302,15 +302,19 @@ const ListingEditScreen = ({ match, history }) => {
 
             <Form.Group controlId="coverImage">
               <Form.Label>Cover Image</Form.Label>
-              <div>
-                <Image
-                  fluid
-                  thumbnail
-                  height="50"
-                  width="50"
-                  src={coverImage}
-                />
-              </div>
+              {coverImage ? (
+                <div>
+                  <Image
+                    fluid
+                    thumbnail
+                    height="50"
+                    width="50"
+                    src={coverImage}
+                  />
+                </div>
+              ) : (
+                console.log('No cover')
+              )}
               <Form.Control
                 type="text"
                 disabled
@@ -330,7 +334,7 @@ const ListingEditScreen = ({ match, history }) => {
             <Form.Group controlId="images">
               <Form.Label>Listing Images</Form.Label>
               <div className="d-flex flex-row">
-                {images.map((img, _id) => {
+                {images?.map((img, _id) => {
                   return (
                     <Image fluid thumbnail height="50" width="50" src={img} />
                   );

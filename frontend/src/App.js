@@ -26,19 +26,58 @@ const App = () => {
             <Route exact path="/register" component={RegisterScreen} />
             <Route exact path="/profile" component={ProfileScreen} />
             <Route exact path="/dashboard" component={DashboardScreen} />
-            <Route path="/listing/:id" component={ListingScreen} />
-            <Route path="/admin/vendorlist" component={VendorListScreen} />
-            <Route path="/admin/vendor/:id/edit" component={VendorEditScreen} />
-            <Route path="/admin/listinglist" component={ListingListScreen} />
+            <Route
+              exact
+              path="/dashboard/:pageNumber"
+              component={DashboardScreen}
+            />
+            <Route exact path="/listing/:id" component={ListingScreen} />
+            <Route
+              exact
+              path="/admin/vendorlist"
+              component={VendorListScreen}
+            />
+            <Route
+              exact
+              path="/admin/vendorlist/:pageNumber"
+              component={VendorListScreen}
+            />
+            <Route
+              exact
+              path="/admin/vendor/:id/edit"
+              component={VendorEditScreen}
+            />
+            <Route
+              exact
+              path="/admin/listinglist"
+              component={ListingListScreen}
+            />
+            <Route
+              exact
+              path="/admin/listinglist/:pageNumber"
+              component={ListingListScreen}
+            />
             <Route
               path="/admin/listing/:id/edit"
               component={ListingEditScreen}
             />
             <Route
+              exact
               path="/search/filters/:make/:model/:year/:category"
               component={HomeScreen}
             />
-            <Route path="/search/:keyword" component={HomeScreen} />
+            <Route
+              exact
+              path="/search/filters/:make/:model/:year/:category/page/:pageNumber"
+              component={HomeScreen}
+            />
+            <Route exact path="/search/:keyword" component={HomeScreen} />
+            <Route exact path="/page/:pageNumber" component={HomeScreen} />
+            <Route
+              exact
+              path="/search/:keyword/page/:pageNumber"
+              component={HomeScreen}
+            />
             <Route exact path="/" component={HomeScreen} />
           </Switch>
         </Container>

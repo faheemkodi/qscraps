@@ -15,12 +15,10 @@ const vendorSchema = mongoose.Schema(
     primaryContactNo: {
       type: String,
       required: true,
-      unique: true,
     },
     alternateContactNo: {
       type: String,
       required: true,
-      unique: true,
     },
     companyRegistration: {
       type: String,

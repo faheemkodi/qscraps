@@ -106,7 +106,7 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Primary Contact Number</Form.Label>
           <Form.Control
             type="tel"
-            placeholder="Enter contact number (+974-xxxxxxxx)"
+            placeholder="Enter contact number (+974-xxxx-xxxx)"
             value={primaryContactNo}
             onChange={(e) => setPrimaryContactNo(e.target.value)}
           ></Form.Control>

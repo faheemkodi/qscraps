@@ -87,7 +87,12 @@ export const vendorListReducer = (state = { vendors: [] }, action) => {
     case VENDOR_LIST_REQUEST:
       return { loading: true };
     case VENDOR_LIST_SUCCESS:
-      return { loading: false, vendors: action.payload };
+      return {
+        loading: false,
+        vendors: action.payload.vendors,
+        pages: action.payload.pages,
+        page: action.payload.page,
+      };
     case VENDOR_LIST_FAIL:
       return { loading: false, error: action.payload };
     case VENDOR_LIST_RESET:

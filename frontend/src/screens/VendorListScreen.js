@@ -6,14 +6,17 @@ import { FaCheck, FaTimes, FaEdit, FaTrash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import PaginateVendorList from '../components/PaginateVendorList';
 import Meta from '../components/Meta';
 import { listVendors, deleteVendor } from '../actions/vendorActions';
 
-const VendorListScreen = ({ history }) => {
+const VendorListScreen = ({ history, match }) => {
+  const pageNumber = match.params.pageNumber;
+
   const dispatch = useDispatch();
 
   const vendorList = useSelector((state) => state.vendorList);
-  const { loading, error, vendors } = vendorList;
+  const { loading, error, vendors, pages, page } = vendorList;
 
   const vendorLogin = useSelector((state) => state.vendorLogin);
   const { vendorInfo } = vendorLogin;
@@ -23,11 +26,11 @@ const VendorListScreen = ({ history }) => {
 
   useEffect(() => {
     if (vendorInfo && vendorInfo.isAdmin) {
-      dispatch(listVendors());
+      dispatch(listVendors(pageNumber));
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, vendorInfo, successDelete]);
+  }, [dispatch, history, vendorInfo, successDelete, pageNumber]);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
@@ -47,55 +50,66 @@ const VendorListScreen = ({ history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm bg-light">
-          <thead>
-            <tr>
-              <th>NAME</th>
-              <th>EMAIL</th>
-              <th>CONTACT #1</th>
-              <th>CONTACT #2</th>
-              <th>CR NO.</th>
-              <th>ADDRESS</th>
-              <th>ADMIN</th>
-              <th>MODIFY</th>
-            </tr>
-          </thead>
-          <tbody>
-            {vendors.map((vendor) => (
-              <tr key={vendor._id}>
-                <td>{vendor.vendorName}</td>
-                <td>
-                  <a href={`mailto:${vendor.email}`}>{vendor.email}</a>
-                </td>
-                <td>{vendor.primaryContactNo}</td>
-                <td>{vendor.alternateContactNo}</td>
-                <td>{vendor.companyRegistration}</td>
-                <td>{vendor.address}</td>
-                <td>
-                  {vendor.isAdmin ? (
-                    <FaCheck color="green" />
-                  ) : (
-                    <FaTimes color="red" />
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/admin/vendor/${vendor._id}/edit`}>
-                    <Button variant="light" className="btn-sm">
-                      <FaEdit />
-                    </Button>
-                  </LinkContainer>
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => deleteHandler(vendor._id)}
-                  >
-                    <FaTrash />
-                  </Button>
-                </td>
+        <>
+          <Table
+            striped
+            bordered
+            hover
+            responsive
+            className="table-sm bg-light"
+          >
+            <thead>
+              <tr>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>CONTACT #1</th>
+                <th>CONTACT #2</th>
+                <th>CR NO.</th>
+                <th>ADDRESS</th>
+                <th>ADMIN</th>
+                <th>MODIFY</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {vendors.map((vendor) => (
+                <tr key={vendor._id}>
+                  <td>{vendor.vendorName}</td>
+                  <td>
+                    <a href={`mailto:${vendor.email}`}>{vendor.email}</a>
+                  </td>
+                  <td>{vendor.primaryContactNo}</td>
+                  <td>{vendor.alternateContactNo}</td>
+                  <td>{vendor.companyRegistration}</td>
+                  <td>{vendor.address}</td>
+                  <td>
+                    {vendor.isAdmin ? (
+                      <FaCheck color="green" />
+                    ) : (
+                      <FaTimes color="red" />
+                    )}
+                  </td>
+                  <td>
+                    <LinkContainer to={`/admin/vendor/${vendor._id}/edit`}>
+                      <Button variant="light" className="btn-sm">
+                        <FaEdit />
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => deleteHandler(vendor._id)}
+                    >
+                      <FaTrash />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <div className="pagenums">
+            <PaginateVendorList pages={pages} page={page} />
+          </div>
+        </>
       )}
     </>
   );

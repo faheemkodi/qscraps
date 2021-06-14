@@ -5,7 +5,6 @@ const modelSchema = mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
 
     parent: {

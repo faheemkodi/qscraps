@@ -19,13 +19,20 @@ import {
 } from '../constants/listingConstants';
 
 export const listListings =
-  (keyword = '', make = '', model = '', year = '', category = '') =>
+  (
+    keyword = '',
+    make = '',
+    model = '',
+    year = '',
+    category = '',
+    pageNumber = ''
+  ) =>
   async (dispatch) => {
     try {
       dispatch({ type: LISTING_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `/api/listings?keyword=${keyword}&make=${make}&model=${model}&year=${year}&category=${category}`
+        `/api/listings?keyword=${keyword}&make=${make}&model=${model}&year=${year}&category=${category}&pageNumber=${pageNumber}`
       );
 
       dispatch({
@@ -165,34 +172,39 @@ export const updateListing = (listing) => async (dispatch, getState) => {
   }
 };
 
-export const listMyListings = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: LISTING_LIST_REQUEST });
+export const listMyListings =
+  (pageNumber = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: LISTING_LIST_REQUEST });
 
-    const {
-      vendorLogin: { vendorInfo },
-    } = getState();
+      const {
+        vendorLogin: { vendorInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${vendorInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${vendorInfo.token}`,
+        },
+      };
 
-    const { data } = await axios.get(`/api/listings/mylistings`, config);
+      const { data } = await axios.get(
+        `/api/listings/mylistings?pageNumber=${pageNumber}`,
+        config
+      );
 
-    dispatch({
-      type: LISTING_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: LISTING_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: LISTING_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: LISTING_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

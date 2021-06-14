@@ -17,7 +17,9 @@ const LoginScreen = ({ location, history }) => {
   const vendorLogin = useSelector((state) => state.vendorLogin);
   const { loading, error, vendorInfo } = vendorLogin;
 
-  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const redirect = location.search
+    ? location.search.split('=')[1]
+    : '/dashboard';
 
   useEffect(() => {
     if (vendorInfo) {

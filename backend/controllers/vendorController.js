@@ -139,8 +139,15 @@ const updateVendorProfile = asyncHandler(async (req, res) => {
 // @access Private/Admin
 
 const getVendors = asyncHandler(async (req, res) => {
-  const vendors = await Vendor.find({});
-  res.json(vendors);
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const count = await Vendor.countDocuments({}).exec();
+  const vendors = await Vendor.find({})
+    .sort({ createdAt: 'desc' })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ vendors, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc Delete vendor

@@ -43,7 +43,7 @@ const importData = async () => {
 
     const sampleMake = createdMakes[0].name;
     const sampleModel = createdModels[0].name;
-    const sampleYear = [createdYears[10].makeYear, createdYears[20].makeYear];
+    const sampleYear = [createdYears[19].makeYear, createdYears[20].makeYear];
     const sampleCategory = [
       createdCategories[3].name,
       createdCategories[4].name,

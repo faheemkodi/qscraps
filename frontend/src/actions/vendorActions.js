@@ -201,38 +201,43 @@ export const updateVendorProfile = (vendor) => async (dispatch, getState) => {
   }
 };
 
-export const listVendors = () => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: VENDOR_LIST_REQUEST,
-    });
+export const listVendors =
+  (pageNumber = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: VENDOR_LIST_REQUEST,
+      });
 
-    const {
-      vendorLogin: { vendorInfo },
-    } = getState();
+      const {
+        vendorLogin: { vendorInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${vendorInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${vendorInfo.token}`,
+        },
+      };
 
-    const { data } = await axios.get('/api/vendors', config);
+      const { data } = await axios.get(
+        `/api/vendors?pageNumber=${pageNumber}`,
+        config
+      );
 
-    dispatch({
-      type: VENDOR_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: VENDOR_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.response,
-    });
-  }
-};
+      dispatch({
+        type: VENDOR_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: VENDOR_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.response,
+      });
+    }
+  };
 
 export const deleteVendor = (id) => async (dispatch, getState) => {
   try {
@@ -290,6 +295,8 @@ export const updateVendor = (vendor) => async (dispatch, getState) => {
     dispatch({ type: VENDOR_UPDATE_SUCCESS });
 
     dispatch({ type: VENDOR_DETAILS_SUCCESS, payload: data });
+
+    dispatch({ type: VENDOR_DETAILS_RESET });
   } catch (error) {
     dispatch({
       type: VENDOR_UPDATE_FAIL,

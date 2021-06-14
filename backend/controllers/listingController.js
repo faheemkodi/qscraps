@@ -5,6 +5,9 @@ import Listing from '../models/listingModel.js';
 // @route GET/api/listings
 // @access Public route
 const getListings = asyncHandler(async (req, res) => {
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber) || 1;
+
   const keyword = req.query.keyword
     ? {
         $or: [
@@ -28,6 +31,13 @@ const getListings = asyncHandler(async (req, res) => {
     ? { category: { $regex: req.query.category, $options: 'i' } }
     : {};
 
+  const count = await Listing.countDocuments({
+    ...keyword,
+    ...make,
+    ...model,
+    ...year,
+    ...category,
+  }).exec();
   const listings = await Listing.find({
     ...keyword,
     ...make,
@@ -35,10 +45,17 @@ const getListings = asyncHandler(async (req, res) => {
     ...year,
     ...category,
   })
+    .sort({ createdAt: 'desc' })
     .populate('vendorName', 'vendorName address')
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
     .exec();
 
-  res.json(listings);
+  res.json({
+    listings,
+    page,
+    pages: Math.ceil(count / pageSize),
+  });
 });
 
 // @desc Fetch a single listing by _id
@@ -78,18 +95,12 @@ const deleteListing = asyncHandler(async (req, res) => {
 // @access Private
 const createListing = asyncHandler(async (req, res) => {
   const listing = new Listing({
-    title: 'Sample title',
-    description: 'Sample description',
+    title: 'Add listing title',
+    description: 'Add listing description',
     make: 'Honda',
     model: 'Accord',
-    year: [2000, 2001, 2002],
-    category: ['All parts', 'Engine Parts'],
-    coverImage: '/images/1_img_1.jpg',
-    images: [
-      '/images/1_img_1.jpg',
-      '/images/1_img_2.jpg',
-      '/images/1_img_3.jpg',
-    ],
+    year: ['2021'],
+    category: ['All Parts'],
     vendorName: req.vendor._id,
     primaryContactNo: req.vendor.primaryContactNo,
     alternateContactNo: req.vendor.alternateContactNo,
@@ -144,9 +155,19 @@ const updateListing = asyncHandler(async (req, res) => {
 // @route GET/api/listings/mylistings
 // @access Private
 const getMyListings = asyncHandler(async (req, res) => {
-  const listings = await Listing.find({ vendorName: req.vendor._id }).exec();
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber) || 1;
 
-  res.json(listings);
+  const count = await Listing.countDocuments({
+    vendorName: req.vendor._id,
+  }).exec();
+  const listings = await Listing.find({ vendorName: req.vendor._id })
+    .sort({ createdAt: 'desc' })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+    .exec();
+
+  res.json({ listings, page, pages: Math.ceil(count / pageSize) });
 });
 
 export {

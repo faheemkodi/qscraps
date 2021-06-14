@@ -6,6 +6,7 @@ import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Paginate from '../components/Paginate';
 import Meta from '../components/Meta';
 import {
   listMyListings,
@@ -15,10 +16,11 @@ import {
 import { LISTING_CREATE_RESET } from '../constants/listingConstants';
 
 const DashboardScreen = ({ history, match }) => {
+  const pageNumber = match.params.pageNumber || 1;
   const dispatch = useDispatch();
 
   const listingList = useSelector((state) => state.listingList);
-  const { loading, error, listings } = listingList;
+  const { loading, error, listings, pages, page } = listingList;
 
   const listingDelete = useSelector((state) => state.listingDelete);
   const {
@@ -48,7 +50,7 @@ const DashboardScreen = ({ history, match }) => {
     if (successCreate) {
       history.push(`/admin/listing/${createdListing._id}/edit`);
     } else {
-      dispatch(listMyListings());
+      dispatch(listMyListings(pageNumber));
     }
   }, [
     dispatch,
@@ -57,6 +59,7 @@ const DashboardScreen = ({ history, match }) => {
     successDelete,
     successCreate,
     createdListing,
+    pageNumber,
   ]);
 
   const deleteHandler = (id) => {
@@ -98,63 +101,74 @@ const DashboardScreen = ({ history, match }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm bg-light">
-          <thead>
-            <tr>
-              <th>COVER</th>
-              <th>TITLE</th>
-              <th>DESCRIPTION</th>
-              <th>MAKE</th>
-              <th>MODEL</th>
-              <th>YEAR</th>
-              <th>CATEGORY</th>
-              <th>MODIFY</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listings.map((listing) => (
-              <tr key={listing._id}>
-                <td>
-                  <Image
-                    fluid
-                    thumbnail
-                    height="100"
-                    width="100"
-                    src={listing.coverImage}
-                  />
-                </td>
-                <td>{listing.title}</td>
-                <td>{listing.description}</td>
-                <td>{listing.make}</td>
-                <td>{listing.model}</td>
-                <td>
-                  {listing.year?.map((yr, index) => (
-                    <p key={index}>{yr}</p>
-                  ))}
-                </td>
-                <td>
-                  {listing.category?.map((cat, index) => (
-                    <p key={index}>{cat}</p>
-                  ))}
-                </td>
-                <td>
-                  <LinkContainer to={`/admin/listing/${listing._id}/edit`}>
-                    <Button variant="light" className="btn-sm">
-                      <FaEdit />
-                    </Button>
-                  </LinkContainer>
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => deleteHandler(listing._id)}
-                  >
-                    <FaTrash />
-                  </Button>
-                </td>
+        <>
+          <Table
+            striped
+            bordered
+            hover
+            responsive
+            className="table-sm bg-light"
+          >
+            <thead>
+              <tr>
+                <th>COVER</th>
+                <th>TITLE</th>
+                <th>DESCRIPTION</th>
+                <th>MAKE</th>
+                <th>MODEL</th>
+                <th>YEAR</th>
+                <th>CATEGORY</th>
+                <th>MODIFY</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {listings.map((listing) => (
+                <tr key={listing._id}>
+                  <td>
+                    <Image
+                      fluid
+                      thumbnail
+                      height="100"
+                      width="100"
+                      src={listing.coverImage}
+                    />
+                  </td>
+                  <td>{listing.title}</td>
+                  <td>{listing.description}</td>
+                  <td>{listing.make}</td>
+                  <td>{listing.model}</td>
+                  <td>
+                    {listing.year?.map((yr, index) => (
+                      <p key={index}>{yr}</p>
+                    ))}
+                  </td>
+                  <td>
+                    {listing.category?.map((cat, index) => (
+                      <p key={index}>{cat}</p>
+                    ))}
+                  </td>
+                  <td>
+                    <LinkContainer to={`/admin/listing/${listing._id}/edit`}>
+                      <Button variant="light" className="btn-sm">
+                        <FaEdit />
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => deleteHandler(listing._id)}
+                    >
+                      <FaTrash />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <div className="pagenums">
+            <Paginate pages={pages} page={page} vendorInfo={true} />
+          </div>
+        </>
       )}
     </>
   );
