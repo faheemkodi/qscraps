@@ -97,8 +97,8 @@ const createListing = asyncHandler(async (req, res) => {
   const listing = new Listing({
     title: 'Add listing title',
     description: 'Add listing description',
-    make: 'Honda',
-    model: 'Accord',
+    make: '',
+    model: '',
     year: ['2021'],
     category: ['All Parts'],
     vendorName: req.vendor._id,

@@ -216,7 +216,7 @@ const ListingEditScreen = ({ match, history }) => {
                 value={make}
                 onChange={makeChangeHandler}
               >
-                <option key="blankValue" hidden value>
+                <option key="blankValue" value>
                   --Select Make--
                 </option>
                 {makes.map((make, _id) => {
