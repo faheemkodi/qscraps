@@ -11,29 +11,29 @@ const Listing = ({ listing }) => {
       <Card.Body>
         <LinkContainer to={`/listing/${listing._id}`}>
           <Row>
-            <Col xs={2} className="d-flex flex-row justify-content-center">
+            <Col xs={2} className="d-flex flex-col align-items-center">
               <Image fluid src={listing.coverImage} alt="listing cover image" />
             </Col>
             <Col xs={10} className="text-center text-muted text-uppercase">
-              <Row xs={1}>
-                <Col xs={4} className="d-flex flex-row justify-content-center">
+              <Row xs={3} className="d-flex flex-row justify-content-center">
+                <Col xs={4} className="d-flex flex-row justify-content-around">
                   <p className="small text-center font-weight-bold">
                     {listing.make}
                   </p>
                 </Col>
-                <Col xs={4} className="d-flex flex-row justify-content-center">
+                <Col xs={4} className="d-flex flex-row justify-content-around">
                   <p className="small text-center font-weight-bold">
                     {listing.model}
                   </p>
                 </Col>
-                <Col xs={4} className="d-flex flex-row justify-content-center">
+                <Col xs={4} className="d-flex flex-row justify-content-around">
                   <p className="small text-center font-weight-bold">
                     {listing.year.join(', ')}
                   </p>
                 </Col>
               </Row>
-              <Row xs={1}>
-                <Col xs={12} className="d-flex flex-row justify-content-center">
+              <Row xs={1} className="d-flex flex-row align-items-center">
+                <Col xs={12} className="d-flex flex-row justify-content-around">
                   <p className="small text-center font-weight-bold">
                     {listing.category.join(', ')}
                   </p>
