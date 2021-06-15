@@ -55,34 +55,58 @@ const ListingScreen = ({ match }) => {
               </Carousel>
             </Col>
             <Col sm={4} md={6} className="d-flex flex-row align-items-center">
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h3 className="text-center font-weight-bold text-uppercase text-primary">
+              <ListGroup variant="secondary">
+                <ListGroup.Item variant="secondary">
+                  <h3 className="text-left font-weight-bold text-uppercase text-primary">
                     {listing.title}
                   </h3>
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center text-uppercase">
-                  <strong>Make:</strong> {listing.make}
+                <ListGroup.Item
+                  variant="light"
+                  className="text-left text-primary text-uppercase"
+                >
+                  <strong className="text-muted">Make:</strong> {listing.make}
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center text-uppercase">
-                  <strong>Model:</strong> {listing.model}
+                <ListGroup.Item
+                  variant="light"
+                  className="text-left text-primary text-uppercase"
+                >
+                  <strong className="text-muted">Model:</strong> {listing.model}
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center text-uppercase">
-                  <strong>Year: </strong>
+                <ListGroup.Item
+                  variant="light"
+                  className="text-left text-primary text-uppercase"
+                >
+                  <strong className="text-muted">Year: </strong>
                   {listing.year?.join(', ')}
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center text-uppercase">
-                  <strong>Category: </strong>
+                <ListGroup.Item
+                  variant="light"
+                  className="text-left text-primary text-uppercase"
+                >
+                  <strong className="text-muted">Category: </strong>
                   {listing.category?.join(', ')}
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center text-uppercase">
-                  <strong>Description:</strong> {listing.description}
+                <ListGroup.Item
+                  variant="light"
+                  className="text-left text-primary text-uppercase"
+                >
+                  <strong className="text-muted">Description:</strong>{' '}
+                  {listing.description}
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center text-uppercase">
-                  <strong>Vendor:</strong> {listing.vendorName?.vendorName}
+                <ListGroup.Item
+                  variant="light"
+                  className="text-left text-primary text-uppercase"
+                >
+                  <strong className="text-muted">Vendor:</strong>{' '}
+                  {listing.vendorName?.vendorName}
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center text-uppercase">
-                  <strong>Address:</strong> {listing.vendorName?.address}
+                <ListGroup.Item
+                  variant="light"
+                  className="text-left text-primary text-uppercase"
+                >
+                  <strong className="text-muted">Address:</strong>{' '}
+                  {listing.vendorName?.address}
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -91,7 +115,7 @@ const ListingScreen = ({ match }) => {
             <Button
               onClick={() => setPrimaryContact(listing.primaryContactNo)}
               variant="primary"
-              id="primary-contact "
+              id="primary-contact"
               className="text-center font-weight-bold text-uppercase"
               block
             >
