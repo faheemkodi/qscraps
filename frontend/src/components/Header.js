@@ -68,9 +68,11 @@ const Header = () => {
                 </NavDropdown>
               ) : (
                 <LinkContainer to="/login">
-                  <Button variant="outline-primary">
-                    <FaUser />
-                  </Button>
+                  <Nav.Link>
+                    <Button className="search-button" variant="light">
+                      <FaUser className="text-primary" />
+                    </Button>
+                  </Nav.Link>
                 </LinkContainer>
               )}
               {vendorInfo && vendorInfo.isAdmin && (

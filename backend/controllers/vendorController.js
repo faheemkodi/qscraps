@@ -139,7 +139,7 @@ const updateVendorProfile = asyncHandler(async (req, res) => {
 // @access Private/Admin
 
 const getVendors = asyncHandler(async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 15;
   const page = Number(req.query.pageNumber) || 1;
 
   const count = await Vendor.countDocuments({}).exec();

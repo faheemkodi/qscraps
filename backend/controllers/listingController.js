@@ -5,7 +5,7 @@ import Listing from '../models/listingModel.js';
 // @route GET/api/listings
 // @access Public route
 const getListings = asyncHandler(async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 15;
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
@@ -103,9 +103,9 @@ const createListing = asyncHandler(async (req, res) => {
     category: [''],
     coverImage: '/images/sample-image.jpg',
     images: [
-      '/images/sample-image.jpg',
-      '/images/sample-image.jpg',
-      '/images/sample-image.jpg',
+      '/images/sample-image_a.jpg',
+      '/images/sample-image_b.jpg',
+      '/images/sample-image_c.jpg',
     ],
     vendorName: req.vendor._id,
     primaryContactNo: req.vendor.primaryContactNo,
@@ -161,7 +161,7 @@ const updateListing = asyncHandler(async (req, res) => {
 // @route GET/api/listings/mylistings
 // @access Private
 const getMyListings = asyncHandler(async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 15;
   const page = Number(req.query.pageNumber) || 1;
 
   const count = await Listing.countDocuments({

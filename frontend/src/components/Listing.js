@@ -5,34 +5,40 @@ import { Card, Image, Row, Col } from 'react-bootstrap';
 const Listing = ({ listing }) => {
   return (
     <Card className="my-2 my-sm-3 listing">
-      <Card.Header className="text-center font-weight-bold text-uppercase text-primary">
+      <Card.Header className="text-center font-weight-bold lead small text-uppercase text-primary">
         {listing.title}
       </Card.Header>
       <Card.Body>
         <LinkContainer to={`/listing/${listing._id}`}>
           <Row>
-            <Col xs={4}>
-              <Image
-                thumbnail
-                src={listing.coverImage}
-                alt="listing cover image"
-              />
+            <Col xs={2}>
+              <Image fluid src={listing.coverImage} alt="listing cover image" />
             </Col>
-            <Col xs={4} className="text-center">
-              <p> {listing.make}</p>
-              <p>{listing.model}</p>
-              <p>
-                {listing.year.map((yr, index) => (
-                  <span key={index}>{yr} </span>
-                ))}
-              </p>
-            </Col>
-            <Col xs={4} className="text-center">
-              <p>
-                {listing.category.map((cat, index) => (
-                  <p key={index}>{cat}</p>
-                ))}
-              </p>
+            <Col xs={10} className="text-center text-muted text-uppercase">
+              <Row xs={1} className="d-flex flex-row align-items-center">
+                <Col xs={4}>
+                  <p className="small text-center font-weight-bold">
+                    {listing.make}
+                  </p>
+                </Col>
+                <Col xs={4}>
+                  <p className="small text-center font-weight-bold">
+                    {listing.model}
+                  </p>
+                </Col>
+                <Col xs={4}>
+                  <p className="small text-center font-weight-bold">
+                    {listing.year.join(', ')}
+                  </p>
+                </Col>
+              </Row>
+              <Row xs={1} className="d-flex flex-row align-items-center">
+                <Col xs={12}>
+                  <p className="small text-center font-weight-bold">
+                    {listing.category.join(', ')}
+                  </p>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </LinkContainer>

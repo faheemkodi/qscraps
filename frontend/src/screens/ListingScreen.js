@@ -10,7 +10,7 @@ import {
   Container,
   Image,
 } from 'react-bootstrap';
-import { FaPhone } from 'react-icons/fa';
+import { MdContactPhone } from 'react-icons/md';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Meta from '../components/Meta';
@@ -45,68 +45,67 @@ const ListingScreen = ({ match }) => {
         <Container fluid className="bg-white rounded p-5">
           <Meta title={listing.title} />
           <Row>
-            <Col sm={4} md={6}>
+            <Col sm={4} md={6} className="d-flex flex-row align-items-center">
               <Carousel>
                 {listing.images?.map((image, i) => (
-                  <Carousel.Item>
+                  <Carousel.Item key={listing.images[i]}>
                     <Image fluid key={i} src={image} alt="listing-images" />
                   </Carousel.Item>
                 ))}
               </Carousel>
             </Col>
-            <Col sm={4} md={6}>
-              <ListGroup variant="flush" key="listing-details">
-                <ListGroup.Item key="listing-title">
-                  <h3 className="text-uppercase text-primary">
+            <Col sm={4} md={6} className="d-flex flex-row align-items-center">
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <h3 className="text-center font-weight-bold text-uppercase text-primary">
                     {listing.title}
                   </h3>
                 </ListGroup.Item>
-                <ListGroup.Item key="listing-make">
+                <ListGroup.Item className="text-center text-uppercase">
                   <strong>Make:</strong> {listing.make}
                 </ListGroup.Item>
-                <ListGroup.Item key="listing-model">
+                <ListGroup.Item className="text-center text-uppercase">
                   <strong>Model:</strong> {listing.model}
                 </ListGroup.Item>
-                <ListGroup.Item key="listing-year">
-                  <strong>Year:</strong>
-                  {listing.year?.map((yr, index) => (
-                    <p key={index}>{yr}</p>
-                  ))}
+                <ListGroup.Item className="text-center text-uppercase">
+                  <strong>Year: </strong>
+                  {listing.year?.join(', ')}
                 </ListGroup.Item>
-                <ListGroup.Item key="listing-category">
-                  <strong>Category:</strong>
-                  {listing.category?.map((cat, index) => (
-                    <p key={index}>{cat}</p>
-                  ))}
+                <ListGroup.Item className="text-center text-uppercase">
+                  <strong>Category: </strong>
+                  {listing.category?.join(', ')}
                 </ListGroup.Item>
-                <ListGroup.Item key="listing-description">
+                <ListGroup.Item className="text-center text-uppercase">
                   <strong>Description:</strong> {listing.description}
                 </ListGroup.Item>
-                <ListGroup.Item key="vendor-name">
+                <ListGroup.Item className="text-center text-uppercase">
                   <strong>Vendor:</strong> {listing.vendorName?.vendorName}
                 </ListGroup.Item>
-                <ListGroup.Item key="vendor-address">
+                <ListGroup.Item className="text-center text-uppercase">
                   <strong>Address:</strong> {listing.vendorName?.address}
                 </ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>
-          <Row className="mt-3">
+          <Row xs={1} className="d-flex flex-row align-items-center mt-3">
             <Button
               onClick={() => setPrimaryContact(listing.primaryContactNo)}
-              variant="light"
-              className="text-uppercase font-weight-bold text-primary"
+              variant="primary"
+              id="primary-contact "
+              className="text-center font-weight-bold text-uppercase"
               block
             >
-              <FaPhone /> {primaryContact}
+              <MdContactPhone size={25} /> {primaryContact}
             </Button>
             <Button
               onClick={() => setAlternateContact(listing.alternateContactNo)}
               variant="light"
+              id="alternate-contact"
               className="text-uppercase font-weight-bold text-primary"
               block
             >
-              <FaPhone /> {alternateContact}
+              <MdContactPhone size={25} className="text-primary" />{' '}
+              {alternateContact}
             </Button>
           </Row>
         </Container>
