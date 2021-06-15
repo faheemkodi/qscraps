@@ -11,34 +11,34 @@ const Listing = ({ listing }) => {
       <Card.Body>
         <LinkContainer to={`/listing/${listing._id}`}>
           <Row>
-            <Col xs={2} className="d-flex flex-col align-items-center">
-              <Image fluid src={listing.coverImage} alt="listing cover image" />
+            <Col xs={3} className="d-flex flex-col align-items-center">
+              <Image
+                thumbnail
+                src={listing.coverImage}
+                alt="listing cover image"
+              />
             </Col>
-            <Col xs={10} className="text-center text-muted text-uppercase">
-              <Row xs={3} className="d-flex flex-row justify-content-center">
-                <Col xs={4} className="d-flex flex-row justify-content-around">
-                  <p className="small text-center font-weight-bold">
-                    {listing.make}
-                  </p>
-                </Col>
-                <Col xs={4} className="d-flex flex-row justify-content-around">
-                  <p className="small text-center font-weight-bold">
-                    {listing.model}
-                  </p>
-                </Col>
-                <Col xs={4} className="d-flex flex-row justify-content-around">
-                  <p className="small text-center font-weight-bold">
-                    {listing.year.join(', ')}
-                  </p>
-                </Col>
-              </Row>
-              <Row xs={1} className="d-flex flex-row align-items-center">
-                <Col xs={12} className="d-flex flex-row justify-content-around">
-                  <p className="small text-center font-weight-bold">
-                    {listing.category.join(', ')}
-                  </p>
-                </Col>
-              </Row>
+            <Col
+              xs={9}
+              className="text-center text-uppercase d-flex flex-col align-items-center"
+            >
+              <Col xs={6} className="text-muted">
+                <p className="small text-center font-weight-bold">
+                  {listing.make}
+                </p>
+                <p className="small text-center font-weight-bold">
+                  {listing.model}
+                </p>
+                <p className="small text-center font-weight-bold">
+                  {listing.year.join(', ')}
+                </p>
+              </Col>
+
+              <Col xs={6}>
+                <p className="small text-center text-secondary font-weight-bold">
+                  {listing.category.join(', ')}
+                </p>
+              </Col>
             </Col>
           </Row>
         </LinkContainer>
