@@ -95,8 +95,8 @@ const deleteListing = asyncHandler(async (req, res) => {
 // @access Private
 const createListing = asyncHandler(async (req, res) => {
   const listing = new Listing({
-    title: 'New Listing',
-    description: 'Add a description',
+    title: 'Main Details',
+    description: 'Item Condition',
     make: '',
     model: '',
     year: [''],
@@ -110,7 +110,7 @@ const createListing = asyncHandler(async (req, res) => {
     vendorName: req.vendor._id,
     primaryContactNo: req.vendor.primaryContactNo,
     alternateContactNo: req.vendor.alternateContactNo,
-  });
+  }).exec();
 
   const createdListing = await listing.save();
   res.status(201).json(createdListing);

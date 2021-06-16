@@ -58,7 +58,7 @@ const SearchFilters = ({ history }) => {
         onChange={makeChangeHandler}
       >
         <option key="blankValue" hidden value>
-          --Select Make--
+          --Make--
         </option>
         {makes.map((make, _id) => {
           return (
@@ -76,7 +76,7 @@ const SearchFilters = ({ history }) => {
         onChange={(e) => setModel(e.target.value)}
       >
         <option key="blankValue" hidden value>
-          --Select Model--
+          --Model--
         </option>
         {models.map((model, _id) => {
           return (
@@ -94,7 +94,7 @@ const SearchFilters = ({ history }) => {
         onChange={(e) => setYear(e.target.value)}
       >
         <option key="blankValue" hidden value>
-          --Select Year--
+          --Year--
         </option>
         {years.map((year, _id) => {
           return (
@@ -112,7 +112,7 @@ const SearchFilters = ({ history }) => {
         onChange={(e) => setCategory(e.target.value)}
       >
         <option key="blankValue" hidden value>
-          --Select Category--
+          --Category--
         </option>
         {categories.map((category, _id) => {
           return (

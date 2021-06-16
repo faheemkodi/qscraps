@@ -49,7 +49,13 @@ const ListingScreen = ({ match }) => {
               <Carousel>
                 {listing.images?.map((image, i) => (
                   <Carousel.Item key={listing.images[i]}>
-                    <Image fluid key={i} src={image} alt="listing-images" />
+                    <Image
+                      fluid
+                      className="big-img"
+                      key={i}
+                      src={image}
+                      alt="listing-images"
+                    />
                   </Carousel.Item>
                 ))}
               </Carousel>

@@ -15,6 +15,7 @@ const Listing = ({ listing }) => {
               <Image
                 fluid
                 thumbnail
+                className="small-img"
                 src={listing.coverImage}
                 alt="listing cover image"
               />

@@ -127,15 +127,13 @@ const ListingListScreen = ({ history, match }) => {
               {listings.map((listing) => (
                 <tr key={listing._id}>
                   <td>
-                    <td>
-                      <Image
-                        fluid
-                        thumbnail
-                        height="100"
-                        width="100"
-                        src={listing.coverImage}
-                      />
-                    </td>
+                    <Image
+                      fluid
+                      thumbnail
+                      height="100"
+                      width="100"
+                      src={listing.coverImage}
+                    />
                   </td>
                   <td>{listing.title}</td>
                   <td>{listing.description}</td>
@@ -157,6 +155,7 @@ const ListingListScreen = ({ history, match }) => {
                       return (
                         <Image
                           fluid
+                          key={_id}
                           thumbnail
                           height="50"
                           width="50"

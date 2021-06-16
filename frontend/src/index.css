@@ -67,6 +67,16 @@ main:after {
   cursor: pointer;
 }
 
+.big-img {
+  width: 450px;
+  height: 450px;
+}
+
+.small-img {
+  width: 100px;
+  height: 100px;
+}
+
 .pagenums {
   display: flex;
   justify-content: center;

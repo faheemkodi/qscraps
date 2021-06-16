@@ -62,7 +62,6 @@ const ListingEditScreen = ({ match, history }) => {
     setMake(e.target.value);
     dispatch(listMakeModels(e.target.value));
   };
-  //end
 
   const listingUpdate = useSelector((state) => state.listingUpdate);
   const {
@@ -258,9 +257,9 @@ const ListingEditScreen = ({ match, history }) => {
                 value={year}
                 onChange={(e) =>
                   setYear(
-                    [].slice
-                      .call(e.target.selectedOptions)
-                      .map((item) => item.value)
+                    [].slice.call(e.target.selectedOptions).map((item) => {
+                      return item.value;
+                    })
                   )
                 }
                 multiple
@@ -283,9 +282,9 @@ const ListingEditScreen = ({ match, history }) => {
                 value={category}
                 onChange={(e) =>
                   setCategory(
-                    [].slice
-                      .call(e.target.selectedOptions)
-                      .map((item) => item.value)
+                    [].slice.call(e.target.selectedOptions).map((item) => {
+                      return item.value;
+                    })
                   )
                 }
                 multiple
@@ -336,7 +335,14 @@ const ListingEditScreen = ({ match, history }) => {
               <div className="d-flex flex-row">
                 {images?.map((img, _id) => {
                   return (
-                    <Image fluid thumbnail height="50" width="50" src={img} />
+                    <Image
+                      key={_id}
+                      fluid
+                      thumbnail
+                      height="50"
+                      width="50"
+                      src={img}
+                    />
                   );
                 })}
               </div>
