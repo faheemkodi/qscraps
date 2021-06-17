@@ -20,12 +20,17 @@ const SearchBox = ({ history }) => {
       <Form.Control
         type="text"
         onChange={(e) => setKeyword(e.target.value)}
-        size="md"
+        size="sm"
         name="q"
         value={keyword}
         placeholder="Search for vehicles or spare parts"
       ></Form.Control>
-      <Button type="submit" variant="outline-primary" className="search-button">
+      <Button
+        size="sm"
+        type="submit"
+        variant="outline-primary"
+        className="search-button"
+      >
         <FaSearch />
       </Button>
     </Form>

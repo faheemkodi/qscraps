@@ -52,16 +52,16 @@ const SearchFilters = ({ history }) => {
   return (
     <>
       <Col xs={12}>
-        <h4 className="small text-uppercase text-muted text-center pt-3 font-weight-bold">
+        <h4 className="small text-uppercase text-muted text-center pt-2 font-weight-bold">
           Advanced Search
         </h4>
       </Col>
 
-      <Form onSubmit={submitHandler} className="search-filters ml-md-5 my-2">
+      <Form onSubmit={submitHandler} className="search-filters ml-md-5">
         <Form.Control
           as="select"
           value={make}
-          size="md"
+          size="sm"
           onChange={makeChangeHandler}
         >
           <option key="blankValue" hidden value>
@@ -78,7 +78,7 @@ const SearchFilters = ({ history }) => {
 
         <Form.Control
           as="select"
-          size="md"
+          size="sm"
           value={model}
           onChange={(e) => setModel(e.target.value)}
         >
@@ -96,7 +96,7 @@ const SearchFilters = ({ history }) => {
 
         <Form.Control
           as="select"
-          size="md"
+          size="sm"
           value={year}
           onChange={(e) => setYear(e.target.value)}
         >
@@ -114,7 +114,7 @@ const SearchFilters = ({ history }) => {
 
         <Form.Control
           as="select"
-          size="md"
+          size="sm"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -133,7 +133,7 @@ const SearchFilters = ({ history }) => {
         <Button
           type="submit"
           variant="outline-primary"
-          size="md"
+          size="sm"
           className="search-button"
         >
           <FaCar />
