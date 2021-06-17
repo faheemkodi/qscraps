@@ -51,11 +51,16 @@ const getListings = asyncHandler(async (req, res) => {
     .skip(pageSize * (page - 1))
     .exec();
 
-  res.json({
-    listings,
-    page,
-    pages: Math.ceil(count / pageSize),
-  });
+  if (count) {
+    res.json({
+      listings,
+      page,
+      pages: Math.ceil(count / pageSize),
+    });
+  } else {
+    res.status(404);
+    throw new Error('No listings found for your search.');
+  }
 });
 
 // @desc Fetch a single listing by _id
