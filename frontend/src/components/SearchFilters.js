@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Col } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
 
 import { listMakes, listMakeModels } from '../actions/makeActions';
@@ -50,88 +50,96 @@ const SearchFilters = ({ history }) => {
   };
 
   return (
-    <Form onSubmit={submitHandler} className="search-filters ml-md-5 my-2">
-      <Form.Control
-        as="select"
-        value={make}
-        size="md"
-        onChange={makeChangeHandler}
-      >
-        <option key="blankValue" hidden value>
-          --Make--
-        </option>
-        {makes.map((make, _id) => {
-          return (
-            <option key={_id} value={make.name}>
-              {make.name}
-            </option>
-          );
-        })}
-      </Form.Control>
+    <>
+      <Col xs={12}>
+        <h4 className="small text-uppercase text-muted text-center pt-3 font-weight-bold">
+          Advanced Search
+        </h4>
+      </Col>
 
-      <Form.Control
-        as="select"
-        size="md"
-        value={model}
-        onChange={(e) => setModel(e.target.value)}
-      >
-        <option key="blankValue" hidden value>
-          --Model--
-        </option>
-        {models.map((model, _id) => {
-          return (
-            <option key={_id} value={model.name}>
-              {model.name}
-            </option>
-          );
-        })}
-      </Form.Control>
+      <Form onSubmit={submitHandler} className="search-filters ml-md-5 my-2">
+        <Form.Control
+          as="select"
+          value={make}
+          size="md"
+          onChange={makeChangeHandler}
+        >
+          <option key="blankValue" hidden value>
+            --Make--
+          </option>
+          {makes.map((make, _id) => {
+            return (
+              <option key={_id} value={make.name}>
+                {make.name}
+              </option>
+            );
+          })}
+        </Form.Control>
 
-      <Form.Control
-        as="select"
-        size="md"
-        value={year}
-        onChange={(e) => setYear(e.target.value)}
-      >
-        <option key="blankValue" hidden value>
-          --Year--
-        </option>
-        {years.map((year, _id) => {
-          return (
-            <option key={_id} value={year.makeYear}>
-              {year.makeYear}
-            </option>
-          );
-        })}
-      </Form.Control>
+        <Form.Control
+          as="select"
+          size="md"
+          value={model}
+          onChange={(e) => setModel(e.target.value)}
+        >
+          <option key="blankValue" hidden value>
+            --Model--
+          </option>
+          {models.map((model, _id) => {
+            return (
+              <option key={_id} value={model.name}>
+                {model.name}
+              </option>
+            );
+          })}
+        </Form.Control>
 
-      <Form.Control
-        as="select"
-        size="md"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      >
-        <option key="blankValue" hidden value>
-          --Category--
-        </option>
-        {categories.map((category, _id) => {
-          return (
-            <option key={_id} value={category.name}>
-              {category.name}
-            </option>
-          );
-        })}
-      </Form.Control>
+        <Form.Control
+          as="select"
+          size="md"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+        >
+          <option key="blankValue" hidden value>
+            --Year--
+          </option>
+          {years.map((year, _id) => {
+            return (
+              <option key={_id} value={year.makeYear}>
+                {year.makeYear}
+              </option>
+            );
+          })}
+        </Form.Control>
 
-      <Button
-        type="submit"
-        variant="outline-primary"
-        size="md"
-        className="search-button"
-      >
-        <FaCar />
-      </Button>
-    </Form>
+        <Form.Control
+          as="select"
+          size="md"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option key="blankValue" hidden value>
+            --Category--
+          </option>
+          {categories.map((category, _id) => {
+            return (
+              <option key={_id} value={category.name}>
+                {category.name}
+              </option>
+            );
+          })}
+        </Form.Control>
+
+        <Button
+          type="submit"
+          variant="outline-primary"
+          size="md"
+          className="search-button"
+        >
+          <FaCar />
+        </Button>
+      </Form>
+    </>
   );
 };
 
