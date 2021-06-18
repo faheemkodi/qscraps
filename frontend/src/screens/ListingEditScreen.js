@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Form, Button, Image } from 'react-bootstrap';
+import { Form, Button, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -170,6 +170,12 @@ const ListingEditScreen = ({ match, history }) => {
 
   return (
     <>
+      <Card>
+        <Card.Body className="small text-primary">
+          Please make sure to add proper <strong>Categories</strong> to ensure
+          that your results show up in <strong>Advanced Search</strong>
+        </Card.Body>
+      </Card>
       <Meta title="Q-Scraps | Edit Listing" />
       <Link
         to="/dashboard"

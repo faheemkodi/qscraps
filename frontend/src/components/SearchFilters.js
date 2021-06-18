@@ -16,6 +16,8 @@ const SearchFilters = ({ history }) => {
   const [year, setYear] = useState('');
   const [category, setCategory] = useState('');
 
+  const [msg, setMsg] = useState('Advanced Search');
+
   const makeList = useSelector((state) => state.makeList);
   const { makes } = makeList;
 
@@ -45,6 +47,7 @@ const SearchFilters = ({ history }) => {
     if (make && model && year && category) {
       history.push(`/search/filters/${make}/${model}/${year}/${category}`);
     } else {
+      setMsg('Make, Model, Year & Category Required');
       history.push('/');
     }
   };
@@ -53,7 +56,7 @@ const SearchFilters = ({ history }) => {
     <>
       <Col xs={12}>
         <h4 className="small text-uppercase text-muted text-center pt-2 font-weight-bold">
-          Advanced Search
+          {msg}
         </h4>
       </Col>
 

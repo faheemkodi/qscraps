@@ -20,7 +20,9 @@ const authVendor = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new Error(
+      'Invalid email or password. If you forgot your password, please contact the administrator.'
+    );
   }
 });
 

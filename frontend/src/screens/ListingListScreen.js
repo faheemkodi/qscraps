@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
-import { Button, Table, Row, Col, Image } from 'react-bootstrap';
+import { Button, Table, Row, Col, Image, Card } from 'react-bootstrap';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -74,6 +74,13 @@ const ListingListScreen = ({ history, match }) => {
 
   return (
     <>
+      <Card>
+        <Card.Body className="small text-primary">
+          Clicking <strong>Create Listing</strong> automatically creates a new
+          listing in your dashboard. If you don't intend to publish it,{' '}
+          <strong>kindly delete the listing from your dashboard below.</strong>
+        </Card.Body>
+      </Card>
       <Meta title="Q-Scraps | Listings Directory" />
       <Link className="btn btn-light btn-sm my-5 text-uppercase" to="/">
         Go Back
