@@ -115,7 +115,7 @@ const createListing = asyncHandler(async (req, res) => {
     vendorName: req.vendor._id,
     primaryContactNo: req.vendor.primaryContactNo,
     alternateContactNo: req.vendor.alternateContactNo,
-  }).exec();
+  });
 
   const createdListing = await listing.save();
   res.status(201).json(createdListing);
